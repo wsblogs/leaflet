@@ -1,7 +1,8 @@
 <template>
-  <a-tabs default-active-key="LoadMaps" tab-position="left">
-    <a-tab-pane key="LoadMaps" tab="加载地图">
-      <LoadMaps></LoadMaps>
+  <a-tabs default-active-key="LoadTianditu">
+    <!--加载天地图-->
+    <a-tab-pane key="LoadTianditu" tab="天地图">
+      <LoadTianditu></LoadTianditu>
     </a-tab-pane>
   </a-tabs>
 </template>
@@ -11,7 +12,7 @@ import { reactive, toRefs, defineComponent, defineAsyncComponent } from 'vue'
 
 export default defineComponent({
   components: {
-    LoadMaps: defineAsyncComponent(() => import('./components/LoadMaps'))
+    LoadTianditu: defineAsyncComponent(() => import('./LoadTianditu'))
   },
   setup (props, ctx) {
     const state = reactive({})
@@ -21,12 +22,4 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.ant-tabs-vertical {
-  height: 100%;
-
-  ::v-deep(.ant-tabs-left-content) {
-    height: 100%;
-    overflow: auto;
-  }
-}
 </style>
