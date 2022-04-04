@@ -1,8 +1,8 @@
 <template>
-  <a-tabs default-active-key="LoadTianditu">
+  <a-tabs v-model:activeKey="activeKey">
     <!--加载天地图-->
     <a-tab-pane key="LoadTianditu" tab="天地图">
-      <LoadTianditu></LoadTianditu>
+      <LoadTianditu v-if="activeKey === 'LoadTianditu'"></LoadTianditu>
     </a-tab-pane>
   </a-tabs>
 </template>
@@ -15,7 +15,9 @@ export default defineComponent({
     LoadTianditu: defineAsyncComponent(() => import('./LoadTianditu'))
   },
   setup (props, ctx) {
-    const state = reactive({})
+    const state = reactive({
+      activeKey: 'LoadTianditu'
+    })
     return { ...toRefs(state) }
   },
 })

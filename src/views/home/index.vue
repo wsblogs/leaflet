@@ -1,7 +1,13 @@
 <template>
-  <a-tabs default-active-key="LoadMaps" tab-position="left">
+  <a-tabs v-model:activeKey="activeKey" tab-position="left">
+    <a-tab-pane key="BaseMap" tab="基础">
+      <BaseMap></BaseMap>
+    </a-tab-pane>
     <a-tab-pane key="LoadMaps" tab="加载地图">
       <LoadMaps></LoadMaps>
+    </a-tab-pane>
+    <a-tab-pane key="Test" tab="Test">
+      test
     </a-tab-pane>
   </a-tabs>
 </template>
@@ -11,10 +17,13 @@ import { reactive, toRefs, defineComponent, defineAsyncComponent } from 'vue'
 
 export default defineComponent({
   components: {
+    BaseMap: defineAsyncComponent(() => import('./components/BaseMap')),
     LoadMaps: defineAsyncComponent(() => import('./components/LoadMaps'))
   },
   setup (props, ctx) {
-    const state = reactive({})
+    const state = reactive({
+      activeKey: 'BaseMap'
+    })
     return { ...toRefs(state) }
   },
 })
