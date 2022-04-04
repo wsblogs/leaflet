@@ -6,6 +6,12 @@
 import { reactive, toRefs, defineComponent, markRaw, onMounted, onUnmounted } from 'vue'
 import 'leaflet/dist/leaflet.css'
 import * as Leaflet from 'leaflet'
+// this L.CRS.Baidu from https://github.com/muyao1987/leaflet-tileLayer-baidugaode/blob/master/src/tileLayer.baidu.js
+import 'proj4leaflet'
+// https://github.com/htoooth/Leaflet.ChineseTmsProviders
+import 'leaflet.chinatmsproviders'
+// 地图纠偏插件 https://github.com/gisarmory/Leaflet.InternetMapCorrection
+import './libs/leaflet.mapCorrection'
 
 export default defineComponent({
   props: {
@@ -40,10 +46,11 @@ export default defineComponent({
         })
 
         // 获取用户地理位置回调 https://leafletjs.cn/examples/mobile/
-        map.locate({ setView: true, maxZoom: 16, })
+        map.locate({ setView: true, maxZoom: 8, })
         map.on('locationfound', e => {
           console.debug(`获取用户当前位置成功`)
           const radius = e.accuracy
+          // 支持自定义图标 https://leafletjs.cn/examples/custom-icons/
           Leaflet.marker(e.latlng).addTo(map)
           .bindPopup(`您在当前位置${ radius }米内`)
           //.openPopup()

@@ -35,6 +35,7 @@ export default defineComponent({
 
   ::v-deep(.ant-tabs-left-content) {
     height: 100%;
+    padding-right: 15px;
     overflow: auto;
   }
 }

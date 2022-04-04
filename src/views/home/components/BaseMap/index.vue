@@ -21,10 +21,31 @@ export default defineComponent({
         layers: [normalLayerGroup],
       },
       onCreate (map) {
-        Leaflet.control.layers(baseLayers, overlayLayers).addTo(map)
+        Leaflet.control.layers(baseLayers, overlayLayers, {collapsed: false}).addTo(map)
         Leaflet.control.zoom({ zoomInTitle: '放大', zoomOutTitle: '缩小' }).addTo(map)
         // 加载geoJson https://leafletjs.cn/examples/choropleth/
-        Leaflet.geoJSON(hangzhouGeoJson).addTo(map)
+        Leaflet.geoJSON(hangzhouGeoJson, {
+          style(feature) {
+            if (feature.properties.name === '余杭区') {
+              return {
+                color: '#800026',
+                weight: 2,
+                opacity: 1,
+                dashArray: '3',
+                fillOpacity: 0.7
+              }
+            }
+            return {}
+          },
+          onEachFeature(feature, layer) {
+            if (feature.properties?.name) {
+              layer.bindPopup(feature.properties?.name)
+            }
+          },
+          filter(feature, layer) {
+            return true
+          }
+        }).addTo(map)
       },
     })
     return { ...toRefs(state) }
