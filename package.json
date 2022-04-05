@@ -15,6 +15,7 @@
     "echarts": "^5.3.2",
     "leaflet": "^1.7.1",
     "leaflet.chinatmsproviders": "^3.0.4",
+    "leaflet.tilelayer.colorfilter": "^1.2.5",
     "normalize.css": "^8.0.1",
     "nprogress": "^0.2.0",
     "proj4": "^2.8.0",
