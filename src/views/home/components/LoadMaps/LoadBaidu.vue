@@ -18,9 +18,10 @@ export default defineComponent({
         crs: L.CRS.Baidu,
         center: [30.16, 120.12],
         zoom: 12,
-        layers: [normalMapTileLayer],
+        //layers: [normalMapTileLayer],
       },
       onCreate (map) {
+        normalMapTileLayer.addTo(map)
         Leaflet.control.layers(baseLayers, overlayLayers).addTo(map)
         Leaflet.control.zoom({ zoomInTitle: '放大', zoomOutTitle: '缩小' }).addTo(map)
       },

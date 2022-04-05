@@ -52,7 +52,7 @@ export default defineComponent({
           const radius = e.accuracy
           // 支持自定义图标 https://leafletjs.cn/examples/custom-icons/
           Leaflet.marker(e.latlng).addTo(map)
-          .bindPopup(`您在当前位置${ radius }米内`)
+          .bindPopup(`您在当前位置${ radius }米内(圈内)`)
           //.openPopup()
           Leaflet.circle(e.latlng, radius).addTo(map)
         })

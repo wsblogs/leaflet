@@ -18,9 +18,10 @@ export default defineComponent({
       options: {
         center: [30.16, 120.12],
         zoom: 12,
-        layers: [normalLayerGroup],
+        //layers: [normalLayerGroup],
       },
       onCreate (map) {
+        normalLayerGroup.addTo(map)
         Leaflet.control.layers(baseLayers, overlayLayers, {collapsed: false}).addTo(map)
         Leaflet.control.zoom({ zoomInTitle: '放大', zoomOutTitle: '缩小' }).addTo(map)
         // 加载geoJson https://leafletjs.cn/examples/choropleth/
