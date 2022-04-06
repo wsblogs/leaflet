@@ -1,5 +1,5 @@
 <template>
-  <a-tabs v-model:activeKey="activeKey" tab-position="left">
+  <a-tabs v-model:activeKey="activeKey" tab-position="left" @change="(tab) => $router.push({query: {...$route.query, tab1: tab}})">
     <a-tab-pane key="BaseMap" tab="基础">
       <BaseMap></BaseMap>
     </a-tab-pane>
@@ -14,6 +14,7 @@
 
 <script lang='jsx'>
 import { reactive, toRefs, defineComponent, defineAsyncComponent } from 'vue'
+import { useRoute } from 'vue-router'
 
 export default defineComponent({
   components: {
@@ -22,8 +23,9 @@ export default defineComponent({
     ThemeMaps: defineAsyncComponent(() => import('./components/ThemeMaps')),
   },
   setup (props, ctx) {
+    const route = useRoute()
     const state = reactive({
-      activeKey: 'BaseMap'
+      activeKey: route.query.tab1 || 'BaseMap'
     })
     return { ...toRefs(state) }
   },
