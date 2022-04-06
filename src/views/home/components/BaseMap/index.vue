@@ -3,10 +3,11 @@
 </template>
 
 <script lang='jsx'>
-import { reactive, toRefs, defineComponent } from 'vue'
+import { reactive, toRefs, defineComponent, getCurrentInstance, createVNode } from 'vue'
 import * as Leaflet from 'leaflet'
 import hangzhouGeoJson from '@/components/Leaflet/geoJson/100000/330000/330100.geoJson'
 import { createMap } from '@/components/Leaflet/libs/maps/tianditu'
+import CustomPopInfo from './CustomPopInfo'
 const {
   normalMapTileLayer, normalAnnotionTileLayer, satelliteMapTileLayer, satelliteAnnotionTileLayer, terrainMapTileLayer, terrainAnnotionTileLayer,
   normalLayerGroup, imageLayerGroup, terrainLayerGroup,
@@ -14,6 +15,8 @@ const {
 } = createMap()
 export default defineComponent({
   setup (props, ctx) {
+    const instance = getCurrentInstance()
+    const app = instance.appContext.app
     const state = reactive({
       options: {
         center: [30.16, 120.12],
@@ -39,8 +42,15 @@ export default defineComponent({
             return {}
           },
           onEachFeature(feature, layer) {
+            const container = document.createElement('div')
             if (feature.properties?.name) {
-              layer.bindPopup(feature.properties?.name)
+              //layer.bindPopup(feature.properties?.name)
+              layer.bindPopup(container, {})
+              layer.on('popupopen', e => {
+                app.render(createVNode(CustomPopInfo, null, {
+                  default: () => feature.properties?.name
+                }), container)
+              })
             }
           },
           filter(feature, layer) {
